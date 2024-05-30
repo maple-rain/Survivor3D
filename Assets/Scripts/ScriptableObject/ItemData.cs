@@ -16,7 +16,9 @@ public enum ConsumableType
 {
     
     Health,
-    Hunger
+    Hunger,
+    SpeedBoost
+
 }
 
 [Serializable]
@@ -24,12 +26,16 @@ public class ItemDataConsumable
 {
     public ConsumableType type;
     public float value;
+    public float duration;
 }
 
 [CreateAssetMenu(fileName ="Item", menuName = "New Item")]
 
 public class ItemData : ScriptableObject
 {
+    public float value;         
+    public float duration;
+
     [Header("info")]
     public string displayName;
     public string description;

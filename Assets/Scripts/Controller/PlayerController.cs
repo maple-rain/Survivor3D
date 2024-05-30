@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    
+    
     [Header("Movement")]
     public float moveSpeed;
     private Vector2 curMovementInput;
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
     private Rigidbody _rigidbody;
+    
 
     private void Awake()
     {
@@ -30,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     private void FixedUpdate()
@@ -123,4 +128,17 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
     }
+
+    public void ApplySpeedBoost(float value, float duration)
+    {
+        StartCoroutine(SpeedBoostCoroutine(value, duration));
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float value, float duration)
+    {
+        moveSpeed += value;
+        yield return new WaitForSeconds(duration);
+        moveSpeed -= value;
+    }
+
 }
